@@ -3,6 +3,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 
 app = Flask(__name__)
 from login import *
+#je vais configurer mongo
 from model import *
 from route import *
 
