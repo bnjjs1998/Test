@@ -118,3 +118,5 @@ def insert_collection():
                 "Message": str(e)
             }
         ), 400
+
+#je suis beau
