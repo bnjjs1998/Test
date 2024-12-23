@@ -82,11 +82,13 @@ def insert_collection():
             username = request.form.get('username')
             password = request.form.get('password')
             confirm_password = request.form.get('confirm_password')
-            if password == confirm_password:
+
+            if password != confirm_password:
                 return jsonify(
                     {"message": "Les mots de passe sont corrects"}
-                )
-            if not all(email or username or password or confirm_password):
+                ),200
+
+            if not all([email,username,password,confirm_password]):
                 return jsonify(
                     {
                         "Status":"error",
@@ -94,8 +96,9 @@ def insert_collection():
                         "Serveur": 400
                     }
                 ),400
-            collection_choose = 'mydb'
-            collections_mongo = mongo.db[collection_choose]
+
+
+            collections_mongo = mongo.db["mydb"]
             user_register = {"email": email, "username": username, "password": password}
             documents_register = collections_mongo.insert_one(user_register)
 
@@ -113,3 +116,5 @@ def insert_collection():
                     "Message": str(e)
                 }
             ),400
+
+
