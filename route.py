@@ -3,15 +3,14 @@ from warnings import catch_warnings
 from flask import request, session
 from flask import render_template
 from pymongo.synchronous.collection import Collection
-
-from app  import app
-from app import *
+# j'importe le module Flask_pymongo
+from flask_pymongo import PyMongo
 from login import login_manager
+from app import *
+
 from model import *
 # J'importe les variables de connexions à la DB
 from configMongo import *
-# j'importe le module Flask_pymongo
-from flask_pymongo import PyMongo
 
 @app.route('/')
 def index():
