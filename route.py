@@ -94,10 +94,21 @@ def insert_collection():
                 ),400
 
             collection_choose = 'mydb'
+            collections_mongo = mongo.db[collection_choose]
             user_register = {"email": email, "username": username, "password": password}
-            collection_choose.inse
+            documents_register = collections_mongo.insert_one(user_register)
 
-
-            return ""
+            return jsonify(
+                {
+                    "State":"success",
+                    "message":f"{username} est correctement enregistré",
+                    "status": 200
+                }
+            ),200
         except catch_warnings as e:
-            return
+            return jsonify(
+                {
+                    "Status":"error",
+                    "Message": "il manque certaines infos dans le formulaire "
+                }
+            ),400
