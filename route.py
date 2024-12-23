@@ -1,8 +1,7 @@
 from pyexpat.errors import messages
+from werkzeug.exceptions import BadRequest
 
 from app import *
-from warnings import catch_warnings
-
 # Ici tous les outils liès à FLask
 from flask import request, session, jsonify
 from flask import render_template
@@ -70,7 +69,7 @@ def collection():
         collections_mongo = mongo.db[collection_choose]
         documents = list(collections_mongo.find({}))
         return f"Voici la liste de mes collections {collection_choose}:{documents}:", 200
-    except catch_warnings as e:
+    except BadRequest as e:
         return f"erreur, la collection choisi n'est pas connecté", 500
 
 
@@ -79,12 +78,15 @@ def collection():
 @app.route('/insert_register', methods=['POST'])
 def insert_collection():
         try:
-            data = request.json
             email = request.form.get('email')
             username = request.form.get('username')
             password = request.form.get('password')
-
-            if not(email or username or password):
+            confirm_password = request.form.get('confirm_password')
+            if password == confirm_password:
+                return jsonify(
+                    {"message": "Les mots de passe sont corrects"}
+                )
+            if not all(email or username or password or confirm_password):
                 return jsonify(
                     {
                         "Status":"error",
@@ -92,7 +94,6 @@ def insert_collection():
                         "Serveur": 400
                     }
                 ),400
-
             collection_choose = 'mydb'
             collections_mongo = mongo.db[collection_choose]
             user_register = {"email": email, "username": username, "password": password}
@@ -105,10 +106,10 @@ def insert_collection():
                     "status": 200
                 }
             ),200
-        except catch_warnings as e:
+        except BadRequest  as e:
             return jsonify(
                 {
                     "Status":"error",
-                    "Message": "il manque certaines infos dans le formulaire "
+                    "Message": str(e)
                 }
             ),400
