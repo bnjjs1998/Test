@@ -1,13 +1,19 @@
+from app import *
 from warnings import catch_warnings
 
-from flask import request, session
+# Ici tous les outils liès à FLask
+from flask import request, session, jsonify
 from flask import render_template
-from pymongo.synchronous.collection import Collection
+
+from flask import jsonify
 # j'importe le module Flask_pymongo
 from flask_pymongo import PyMongo
-from login import login_manager
-from app import *
+from pymongo.synchronous.collection import Collection
 
+# Les outils pour gérer les connexions
+from login import login_manager
+
+#ici c'est ma db de test
 from model import *
 # J'importe les variables de connexions à la DB
 from configMongo import *
@@ -54,12 +60,14 @@ def logout():
     return redirect(url_for('login'))
 
 
+#Voici les routes test qui ne dépendent pas du login en accès public
+
 @app.route('/collection', methods=['GET', 'POST'])
 def collection():
     try:
-        Collection_choose ='mydb'
-        collection = mongo.db[Collection_choose]
-
-        print('')
-    except Exception as e:
-        print(f"Errreur de connexion à Mongo",e)
+        collection_choose = 'mydb'
+        collections_mongo = mongo.db[collection_choose]
+        documents = list(collections_mongo.find({}))
+        return f"Voici la liste de mes collections {collection_choose}:{documents}:", 200
+    except catch_warnings as e:
+        return f"erreur, la collection choisi n'est pas connecté", 500
