@@ -1,5 +1,4 @@
 #Le fichier se nomme config-mongo_DB.py
-
 from app import *
 from flask_pymongo import PyMongo
 
