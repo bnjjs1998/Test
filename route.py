@@ -1,7 +1,13 @@
 from flask import request, session
 from flask import render_template
 from app import *
+from login import login_manager
 from model import *
+
+
+@app.route('/')
+def index():
+    return render_template('login.html')
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -29,7 +35,8 @@ def login():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return f"Bienvenue {current_user.username} !", 200
+    dashboard_message = f"Bienvenue {current_user.username} !"
+    return render_template('index.html', dashboard_message=dashboard_message)
 
 
 # Route pour se déconnecter
