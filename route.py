@@ -2,6 +2,7 @@ from warnings import catch_warnings
 
 from flask import request, session
 from flask import render_template
+from pymongo.synchronous.collection import Collection
 
 from app  import app
 from app import *
@@ -11,8 +12,6 @@ from model import *
 from configMongo import *
 # j'importe le module Flask_pymongo
 from flask_pymongo import PyMongo
-
-
 
 @app.route('/')
 def index():
@@ -59,6 +58,9 @@ def logout():
 @app.route('/collection', methods=['GET', 'POST'])
 def collection():
     try:
+        Collection_choose ='mydb'
+        collection = mongo.db[Collection_choose]
+
         print('')
     except Exception as e:
         print(f"Errreur de connexion à Mongo",e)
