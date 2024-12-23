@@ -71,3 +71,4 @@ def collection():
         return f"Voici la liste de mes collections {collection_choose}:{documents}:", 200
     except catch_warnings as e:
         return f"erreur, la collection choisi n'est pas connecté", 500
+#test
