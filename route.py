@@ -1,3 +1,5 @@
+from pyexpat.errors import messages
+
 from app import *
 from warnings import catch_warnings
 
@@ -61,8 +63,7 @@ def logout():
 
 
 #Voici les routes test qui ne dépendent pas du login en accès public
-
-@app.route('/collection', methods=['GET', 'POST'])
+@app.route('/get_collection', methods=['GET'])
 def collection():
     try:
         collection_choose = 'mydb'
@@ -71,4 +72,32 @@ def collection():
         return f"Voici la liste de mes collections {collection_choose}:{documents}:", 200
     except catch_warnings as e:
         return f"erreur, la collection choisi n'est pas connecté", 500
-#test
+
+
+
+#Une route qui permet de s'inscrire
+@app.route('/insert_register', methods=['POST'])
+def insert_collection():
+        try:
+            data = request.json
+            email = request.form.get('email')
+            username = request.form.get('username')
+            password = request.form.get('password')
+
+            if not(email or username or password):
+                return jsonify(
+                    {
+                        "Status":"error",
+                        "Message": "il manque certaines infos dans le formulaire ",
+                        "Serveur": 400
+                    }
+                ),400
+
+            collection_choose = 'mydb'
+            user_register = {"email": email, "username": username, "password": password}
+            collection_choose.inse
+
+
+            return ""
+        except catch_warnings as e:
+            return
