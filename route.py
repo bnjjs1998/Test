@@ -1,8 +1,17 @@
+from warnings import catch_warnings
+
 from flask import request, session
 from flask import render_template
+
+from app  import app
 from app import *
 from login import login_manager
 from model import *
+# J'importe les variables de connexions à la DB
+from configMongo import *
+# j'importe le module Flask_pymongo
+from flask_pymongo import PyMongo
+
 
 
 @app.route('/')
@@ -45,3 +54,11 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/collection', methods=['GET', 'POST'])
+def collection():
+    try:
+        print('')
+    except Exception as e:
+        print(f"Errreur de connexion à Mongo",e)
