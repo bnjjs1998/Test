@@ -1,0 +1,1 @@
+console.log('Je charge mes appels API FLASK et mes différentes interraction')
