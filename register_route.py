@@ -17,7 +17,7 @@ def insert_register():
     try:
         #je déclare la collection
         collections_mongo = mongo.db["User"]
-    
+
         email = request.form.get('email')
         username = request.form.get('username')
         password = request.form.get('password')
