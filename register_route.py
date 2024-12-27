@@ -20,7 +20,7 @@ def insert_register():
 
         email = request.form.get('email')
         username = request.form.get('username')
-        password = request.form.get('password')
+        password = request.form.get('password_register')
         confirm_password = request.form.get('confirm_password')
 
         if password != confirm_password:
