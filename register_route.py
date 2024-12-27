@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, render_template
 
 from app import app
 from app import *
@@ -39,10 +39,17 @@ def insert_register():
 
         user_register = {"email": email, "username": username, "password": password}
         documents_register = collections_mongo.insert_one(user_register)
-        
-        
-        #Verifier si l'utilisateur existe déjà 
-        
+
+        #Verifier si l'utilisateur existe déjà
+
+        existing_user = collections_mongo.find_one({"$or": [{"email": email}, {"username": username}] })
+        if existing_user:
+            return jsonify(
+                {
+                    "Status": 400,
+                    "Message": "Le mail ou le noms d'utilisateur existent déjà",
+                }
+            )
        
 
         return jsonify(
