@@ -1,3 +1,23 @@
 h1{
-
+    background-color: aqua;
 }
+.Input_connect{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+input{
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.Different_form{
+    display: flex;
+    gap:100px
+}
+.btn_log{
+    padding: 10px;
+}
+
+#ofoofofeofoeofoeoefeopfoksp

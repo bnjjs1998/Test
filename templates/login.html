@@ -4,20 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Connexion</h1>
-    <form method="POST" action="{{ url_for('login') }}">
-        <label for="username">Nom d'utilisateur :</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Se Connecter</button>
-    </form>
+    <section class="Different_form">
+        <div class="login">
+            <h1>Connexion</h1>
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="Input_connect">
+                    <label for="username_login">Nom d'utilisateur :</label>
+                    <input type="text" id="username_login" name="username" required placeholder="Entrez votre nom d'utilisateur">
+                </div>
+                <br>
+                <div class="Input_connect">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+                </div>
+                <br>
+                <button class="btn_log" type="submit">Se Connecter</button>
+            </form>
+        </div>
 
+        <div class="register">
+            <h1>Inscription</h1>
+            <form method="POST">
+                <div class="Input_connect">
+                    <label for="email">Email :</label>
+                    <input type="email" name="email" id="email" required placeholder="Entrez votre email">
+                </div>
+                <br>
+                <div class="Input_connect">
+                    <label for="username_register">Nom d'utilisateur :</label>
+                    <input type="text" name="username" id="username_register" required placeholder="Choisissez un nom d'utilisateur">
+                </div>
+                <br>
+                <div class="Input_connect">
+                    <label for="password_register">Mot de passe :</label>
+                    <input type="password" name="password_register" id="password_register" required placeholder="Choisissez un mot de passe">
+                </div>
+                <br>
+                <div class="Input_connect">
+                    <label for="confirm_password">Confirmation du mot de passe :</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirmez votre mot de passe">
+                </div>
+                <br>
+                <button class="btn_log" type="submit">S'inscrire</button>
+            </form>
+        </div>
+    </section>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from app import app
 from app import *
 from configMongo import mongo
@@ -11,7 +13,7 @@ def register_index():
 
 #la route qui permet de s'inscrire
 @app.route('/insert_register', methods=['POST'])
-def insert_collection():
+def insert_register():
     try:
         #je déclare la collection
         collections_mongo = mongo.db["User"]
