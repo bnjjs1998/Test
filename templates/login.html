@@ -28,50 +28,51 @@
         <div class="register">
             <h1>Inscription</h1>
           <form method="POST" action="{{ url_for('insert_register') }}">
-    <div class="Input_connect">
-        <label for="email">Email :</label>
-        <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            placeholder="Entrez votre email">
-    </div>
-    <br>
-    <div class="Input_connect">
-        <label for="username_register">Nom d'utilisateur :</label>
-        <input
-            type="text"
-            name="username"
-            id="username_register"
-            required
-            placeholder="Choisissez un nom d'utilisateur">
-    </div>
-    <br>
-    <div class="Input_connect">
-        <label for="password_register">Mot de passe :</label>
-        <input
-            type="password"
-            name="password_register"
-            id="password_register"
-            required
-            placeholder="Choisissez un mot de passe">
-    </div>
-    <br>
-    <div class="Input_connect">
-        <label for="confirm_password">Confirmation du mot de passe :</label>
-        <input
-            type="password"
-            id="confirm_password"
-            name="confirm_password"
-            required
-            placeholder="Confirmez votre mot de passe">
-    </div>
-    <br>
-    <button class="btn_log" type="submit">S'inscrire</button>
-</form>
-
+        <div class="Input_connect">
+            <label for="email">Email :</label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                placeholder="Entrez votre email">
         </div>
+    <br>
+        <div class="Input_connect">
+            <label for="username_register">Nom d'utilisateur :</label>
+            <input
+                type="text"
+                name="username"
+                id="username_register"
+                required
+                placeholder="Choisissez un nom d'utilisateur">
+        </div>
+    <br>
+        <div class="Input_connect">
+            <label for="password_register">Mot de passe :</label>
+            <input
+                type="password"
+                name="password_register"
+                id="password_register"
+                required
+                placeholder="Choisissez un mot de passe">
+        </div>
+    <br>
+        <div class="Input_connect">
+            <label for="confirm_password">Confirmation du mot de passe :</label>
+            <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                required
+                placeholder="Confirmez votre mot de passe">
+        </div>
+    <br>
+        <button class="btn_log" type="submit">S'inscrire</button>
+        </form>
+        </div>
+
+
     </section>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
