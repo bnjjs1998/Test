@@ -57,7 +57,7 @@ def register():
 
         if users_collection.find_one({"email": email}):
             return "l'email est deja pris"
-        # la requete qui me permet
+        # la requête qui me permet
         users_collection.insert_one({"username": username, "password": password})
         return redirect(url_for("login"))
     return render_template("register.html")
