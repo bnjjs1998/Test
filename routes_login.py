@@ -5,12 +5,9 @@ from flask_pymongo import MongoClient
 from bson import ObjectId
 
 from pyexpat.errors import messages
+from pymongo import ReturnDocument
 
 from app import app, users_collection
-
-
-
-
 @app.route("/")
 def home():
     if "username" in session:
@@ -57,7 +54,7 @@ def register():
 
         if users_collection.find_one({"email": email}):
             return "l'email est deja pris"
-        # la requête qui me permet
+        # la requete qui me permet
         users_collection.insert_one({"username": username, "password": password})
         return redirect(url_for("login"))
     return render_template("register.html")
@@ -72,35 +69,32 @@ def logout():
 @login_required
 @app.route("/profile", methods=["GET"])
 def profile():
+    user_id = session["user_id"]
+    if user_id is None:
+        return redirect(url_for("login"))
+    user = users_collection.find_one({"_id": ObjectId(user_id)})
+    if user:
 
+        user["_id"] = str(user["_id"])
+        return jsonify(user), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
 
-    # Vérifiez si l'utilisateur est connecté via la session
+@app.route("/counter", methods=["POST"])
+def counter():
     if "user_id" not in session:
         return redirect(url_for("login"))
-
-    # Récupérez les informations de l'utilisateur depuis la session
     user_id = session["user_id"]
-    username = session["username"]
-    email = session["email"]
-    password = session["password"]
 
+    updated_counter = users_collection.find_one_and_update(
+        {"_id": ObjectId(user_id)},
+        {"$inc": {"counter": 1}},
+        upsert=True,  # Crée un document si aucun ne correspond
+        return_document=ReturnDocument.AFTER  # Retourne le document après la mise à jour
+    )
 
-    try:
-        # Convertissez l'ID de l'utilisateur en ObjectId pour interroger MongoDB
-        if not ObjectId.is_valid(user_id):
-            return jsonify({"message": "Invalid user ID format."}), 400
-
-        # Récupérer les informations de l'utilisateur depuis la base de données si nécessaire
-        user = users_collection.find_one({"_id": ObjectId(user_id)})
-
-        if not user:
-            return jsonify({"message": "User not found."}), 404
-
-
-    # Retourner les informations sous forme de JSON
-    return jsonify({
-        "username": username,
-        "email": email,
-        "password": password,
-        "message": "Profile loaded successfully."
-    })
+    if updated_counter:
+        return jsonify({
+            "counter": updated_counter["counter"],
+            "status": "success"
+        })
