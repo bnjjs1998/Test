@@ -8,8 +8,9 @@
 <body>
     <a> {{ dashboard_message  }} </a>
     <a href="{{ url_for('logout') }}">logout</a>
-
-    <button>Counter</button>
+    <form action="/profile" >
+        <button>Profile</button>
+    </form>
 
     <script src="{{ url_for('static', filename='js/script_logged.js') }}"></script>
 </body>
