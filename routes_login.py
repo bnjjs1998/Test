@@ -1,13 +1,11 @@
 # app/routes_login.py
+from bson import ObjectId
 from flask import render_template, request, redirect, url_for, session, jsonify
 from flask_login import login_required
-from flask_pymongo import MongoClient
-from bson import ObjectId
-
-from pyexpat.errors import messages
 from pymongo import ReturnDocument
-
 from app import app, users_collection
+
+
 @app.route("/")
 def home():
     if "username" in session:
@@ -80,11 +78,14 @@ def profile():
     else:
         return jsonify({"message": "User not found"}), 404
 
+
+#un Counter de test par session
 @app.route("/counter", methods=["POST"])
 def counter():
+
+    user_id = session["user_id"]
     if "user_id" not in session:
         return redirect(url_for("login"))
-    user_id = session["user_id"]
 
     updated_counter = users_collection.find_one_and_update(
         {"_id": ObjectId(user_id)},
@@ -92,9 +93,11 @@ def counter():
         upsert=True,  # Crée un document si aucun ne correspond
         return_document=ReturnDocument.AFTER  # Retourne le document après la mise à jour
     )
-
+    # j'affiche un json avec le resultat de ma requete
     if updated_counter:
         return jsonify({
             "counter": updated_counter["counter"],
             "status": "success"
         })
+
+
