@@ -1,55 +1,22 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask
 from pymongo import MongoClient
+from flask_session import Session
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Remplacez par une clé sécurisée
+
+# Configuration pour utiliser MongoDB pour les sessions
+app.config['SESSION_TYPE'] = 'mongodb'
+app.config['SESSION_MONGODB'] = MongoClient("mongodb://localhost:27017/")
+app.config['SESSION_MONGODB_DB'] = 'mydb'
+app.config['SESSION_MONGODB_COLLECTION'] = 'sessions'
 
 # Connexion à MongoDB
 client = MongoClient("mongodb://localhost:27017/")
 db = client.mydb
 users_collection = db["User"]
 
+# Initialisation de la session
+Session(app)
 
-@app.route("/")
-def home():
-    if "username" in session:
-        return f"Bienvenue, {session['username']}! <a href='/logout'>Déconnexion</a>"
-    return "Vous n'êtes pas connecté. <a href='/login'>Connexion</a> ou <a href='/register'>Inscription</a>"
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-
-        user = users_collection.find_one({"username": username, "password": password})
-        if user:
-            session["username"] = username
-            return redirect(url_for("home"))
-        return "Nom d'utilisateur ou mot de passe incorrect."
-    return render_template("login.html")
-
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-
-        if users_collection.find_one({"username": username}):
-            return "Nom d'utilisateur déjà pris."
-
-        users_collection.insert_one({"username": username, "password": password})
-        return redirect(url_for("login"))
-    return render_template("register.html")
-
-
-@app.route("/logout")
-def logout():
-    session.pop("username", None)
-    return redirect(url_for("home"))
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+from routes_login import *  # Assurez-vous que routes est importé après l'initialisation de l'app
