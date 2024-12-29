@@ -1,6 +1,5 @@
 function generateChoices(event) {
     event.preventDefault();
-
     const numberOfChoices = document.getElementById('Choice').value;
     const container = document.getElementById('choicesContainer');
 
