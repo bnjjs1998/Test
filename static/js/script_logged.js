@@ -16,6 +16,5 @@ function generateChoices(event) {
         container.appendChild(choiceInput); // Ajoute l'élément au conteneur
         container.appendChild(document.createElement('br')); // Ajoute un saut de ligne
     }
-
     console.log(`Number of choices: ${numberOfChoices}`);
 }
