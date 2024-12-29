@@ -11,7 +11,6 @@ function generateChoices(event) {
         choiceInput.name = `choice${i}`;
         choiceInput.placeholder = `Entrez le choix ${i}`;
         choiceInput.required = true;
-
         container.appendChild(choiceInput); // Ajoute l'élément au conteneur
         container.appendChild(document.createElement('br')); // Ajoute un saut de ligne
     }
