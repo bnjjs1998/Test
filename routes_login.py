@@ -56,8 +56,12 @@ def profile():
         return jsonify(user), 200
     else:
         return jsonify({"message": "User not found"}), 404
+
 # La partie register
 from register_route import *
-#un Counter de test par session
+# un Counter de test par session
 from counter_route import *
+# Un test pour s'assurer que j'ai bien compris
+from Vote_routes import *
+
 
