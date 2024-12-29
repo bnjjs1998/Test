@@ -35,6 +35,14 @@
             <button type="submit">Poster la Question</button>
         </div>
     </form>
+
+    <form action="/Questions_Post">
+        <label for="question">Question</label>
+        <input type="text" id="question" placeholder="entrer le test">
+        <button>POster le test</button>
+    </form>
+
+
     <script src="{{ url_for('static', filename='js/script_logged.js') }}"></script>
 </body>
 </html>

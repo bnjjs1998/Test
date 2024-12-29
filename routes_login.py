@@ -38,13 +38,10 @@ def login():
         return "Nom d'utilisateur ou mot de passe incorrect."
     return render_template("login.html")
 
-
-
 @app.route("/logout")
 def logout():
     session.pop("username", None)
     return redirect(url_for("home"))
-
 
 @login_required
 @app.route("/profile", methods=["GET"])

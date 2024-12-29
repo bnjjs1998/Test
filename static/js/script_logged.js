@@ -7,8 +7,8 @@ function generateChoices(event) {
     for (let i = 1; i <= numberOfChoices; i++) {
         const choiceInput = document.createElement('input');
         choiceInput.type = 'text';
-        choiceInput.id = `choice${i}`;
-        choiceInput.name = `choice${i}`;
+        choiceInput.id = `choice_${i}`;
+        choiceInput.name = `choice_${i}`;
         choiceInput.placeholder = `Entrez le choix ${i}`;
         choiceInput.required = true;
         container.appendChild(choiceInput); // Ajoute l'élément au conteneur
